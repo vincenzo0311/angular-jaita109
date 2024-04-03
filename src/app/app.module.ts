@@ -6,15 +6,21 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginformComponent } from './loginform/loginform.component';
+import { AreadirigentiComponent } from './areadirigenti/areadirigenti.component';
+import { AreastudentiComponent } from './areastudenti/areastudenti.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginformComponent,
+    AreadirigentiComponent,
+    AreastudentiComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    ReactiveFormsModule,
+    HttpClientModule,     //Modulo che ci fornisce le funzionlità per fare le richieste http
+    ReactiveFormsModule,  //Modulo che ci fornisce i form interattivi
     AppRoutingModule
   ],
   providers: [],
