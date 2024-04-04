@@ -1,5 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Dirigente } from 'src/models/Dirigente';
+import { Studente } from 'src/models/Studente';
 
 @Component({
   selector: 'app-areadirigenti',
@@ -7,19 +9,64 @@ import { Component } from '@angular/core';
   styleUrls: ['./areadirigenti.component.css']
 })
 export class AreadirigentiComponent {
+  dirigente? : Dirigente;
+  studenti? : Studente[];
+  
   constructor(private http : HttpClient){
     this.http = http;
     this.checkLogin();
   }
 
+  getDirigente(id : string){
+    let token = sessionStorage.getItem("token");
+    if(token == null){
+      token = "";
+    }
+
+    const headers = new HttpHeaders(
+      {
+        'Content-Type' : 'application/json',
+        'token' : token
+      }
+    );
+
+    const params = new HttpParams().set('idDirigente', id);
+    
+    //Se voglio posso dire a typscript di prendere la risposta dal servere direttamente come il tipo dato che gli passo
+    //tra le angolari. senza fare la conversione dopo.
+    this.http.get<Dirigente>("http://localhost:8080/api/dirigente/byId", {headers, params}).subscribe(risposta =>{
+      // this.dirigente = risposta as Dirigente;
+      this.dirigente = risposta;
+    })
+  }
+
+  getAllStudenti(){
+    let token = sessionStorage.getItem("token");
+    if(token == null){
+      token = "";
+    }
+    
+    const headers = new HttpHeaders(
+      {
+        'Content-Type' : 'application/json',
+        'token' : token,
+      }
+    )
+
+    this.http.get<Studente[]>("http://localhost:8080/api/studente/all", {headers}).subscribe(risposta =>{
+      this.studenti = risposta;
+    })
+  }
+
 
 
   checkLogin(){
-    var token = sessionStorage.getItem("token");
+    let token = sessionStorage.getItem("token");
     if(token == null){
       alert("NON HAI EFFETTUATO UN LOGIN VALIDO")
       sessionStorage.clear();
       window.location.href="/";
+      return;
     }
     else{
       //Compongo gli headers della richiesta, inserendo il token e il ruolo che mi aspetto 
@@ -38,7 +85,19 @@ export class AreadirigentiComponent {
           alert("Non sei autorizzato ad accedere a questa pagina")
           window.location.href="/";
         }
+        else{
+          let id  = token?.split("-")[1] as string;
+          
+          //richieste per informazini necessarie
+          this.getDirigente(id);
+          this.getAllStudenti();
+        }
       })
     }
+  }
+
+  logout(){
+    sessionStorage.clear()
+    window.location.href="/";
   }
 }

@@ -9,13 +9,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginformComponent } from './loginform/loginform.component';
 import { AreadirigentiComponent } from './areadirigenti/areadirigenti.component';
 import { AreastudentiComponent } from './areastudenti/areastudenti.component';
+import { TabellastudentiComponent } from './areadirigenti/tabellastudenti/tabellastudenti.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginformComponent,
     AreadirigentiComponent,
-    AreastudentiComponent
+    AreastudentiComponent,
+    TabellastudentiComponent
   ],
   imports: [
     BrowserModule,

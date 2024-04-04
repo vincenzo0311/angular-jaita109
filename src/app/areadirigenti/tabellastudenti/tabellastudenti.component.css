@@ -1,0 +1,25 @@
+table{
+    border-collapse: collapse;
+}
+
+thead{
+    background-color: rgb(162, 197, 228);
+    font-size: 20pt;
+}
+
+th{
+    width: 200px;
+}
+
+td{
+    font-size: 15pt;
+    text-align: center;
+}
+
+tr:nth-child(odd){
+    background-color: rgb(151, 165, 241);
+}
+
+tr:nth-child(even){
+    background-color: rgb(196, 202, 232);
+}

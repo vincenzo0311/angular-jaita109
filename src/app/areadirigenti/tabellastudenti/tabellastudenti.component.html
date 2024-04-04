@@ -1,0 +1,20 @@
+
+<!-- La tabella ciclerà grazie a *ngFor il vettore di studenti che ci è stato passato dal componente areadirigenti -->
+<table>
+    <thead>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Data nascita</th>
+        <th>Classe</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let studente of studenti">
+            <td>{{studente.id}}</td>
+            <td>{{studente.nome}}</td>
+            <td>{{studente.cognome}}</td>
+            <td>{{studente.dataNascita}}</td>
+            <td>{{studente.classe.sezione}}</td>
+        </tr>
+    </tbody>
+</table>
