@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Classe } from 'src/models/Classe';
 import { Dirigente } from 'src/models/Dirigente';
 import { Studente } from 'src/models/Studente';
 
@@ -11,6 +12,7 @@ import { Studente } from 'src/models/Studente';
 export class AreadirigentiComponent {
   dirigente? : Dirigente;
   studenti? : Studente[];
+  classi? : Classe[];
   
   constructor(private http : HttpClient){
     this.http = http;
@@ -58,6 +60,25 @@ export class AreadirigentiComponent {
     })
   }
 
+  getAllClassi(){
+    let token = sessionStorage.getItem("token");
+    if(token == null){
+      token = "";
+    }
+    
+    const headers = new HttpHeaders(
+      {
+        'Content-Type' : 'application/json',
+        'token' : token,
+      }
+    );
+
+    this.http.get<Classe[]>("http://localhost:8080/api/classe/all", {headers}).subscribe(risposta =>{
+      this.classi = risposta;
+      // console.log(this.classi);
+    })
+  }
+
 
 
   checkLogin(){
@@ -91,6 +112,7 @@ export class AreadirigentiComponent {
           //richieste per informazini necessarie
           this.getDirigente(id);
           this.getAllStudenti();
+          this.getAllClassi();
         }
       })
     }

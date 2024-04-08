@@ -1,4 +1,46 @@
 
+<div *ngIf="isInserisciStudente" class="modal">
+    <h4>Nuovo Studente</h4>
+    <button (click)="toggleInserisciStudente()">CHIUDI</button>
+    <form [formGroup]="formInserisciStudente" (ngSubmit)="submitInserisciStudente()">
+        <label for="nome">Nome: </label>
+        <input type="text" name="nome" formControlName="nome">
+        <br>
+
+        <label for="cognome">Cognome: </label>
+        <input type="text" name="cognome" formControlName="cognome">
+        <br>
+
+        <label for="datanascita">Data nascita: </label>
+        <input type="date" name="datanascita" formControlName="datanascita">
+        <br>
+
+        <label for="username">Username: </label>
+        <input type="text" name="username" formControlName="username">
+        <br>
+
+        <label for="password">Password: </label>
+        <input type="text" name="password" formControlName="password">
+        <br>
+
+        <!-- Dropdown per scegliere le classi -->
+        <!-- 
+            Creo un ciclo su su tutte le classi presenti nel vettore, per ogni classe creo un tag <option>
+            che a livello visivo andrà a visualizzare la sezione, mentre come valore intrinseco avrà l'id della classe che sta visualizzando
+            in questo modo quando io seleziono una delle option, il valore dell'option selezionato verra assegnato come valore al tag <select>
+            quindi quando farò la richiesta al backand manderò indietro (insieme ai dati degli altri input) il valore dell'id della classe scelta
+        -->
+        <label for="classe">Classe studente: </label>
+        <select name="classe" formControlName="idclasse">
+            <option *ngFor="let classe of classi" [value]="classe.id">{{classe.sezione}}</option>
+        </select>
+        <br>
+        <input type="submit" value="SUBMIT: Inserisci nuovo studente">
+
+    </form>
+</div>
+
+<button (click)="toggleInserisciStudente()" *ngIf="!isInserisciStudente">Inserisci uno studente</button>
 <!-- La tabella ciclerà grazie a *ngFor il vettore di studenti che ci è stato passato dal componente areadirigenti -->
 <table>
     <thead>
