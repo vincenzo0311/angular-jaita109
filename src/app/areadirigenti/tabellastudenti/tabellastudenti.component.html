@@ -1,3 +1,46 @@
+<div *ngIf="isModificaStudente" class="modal">
+    <h4>Modifica Studente</h4>
+    <button (click)="toggleModificaStudente()">CHIUDI</button>
+    <form [formGroup]="formModificaStudente" (ngSubmit)="submitModificaStudente()">
+        <input type="hidden" formControlName="id">
+
+        <label for="nome">Nome: </label>
+        <input type="text" name="nome" formControlName="nome">
+        <br>
+
+        <label for="cognome">Cognome: </label>
+        <input type="text" name="cognome" formControlName="cognome">
+        <br>
+
+        <label for="datanascita">Data nascita: </label>
+        <input type="date" name="datanascita" formControlName="datanascita">
+        <br>
+
+        <!-- TODO: Aggiungere una richiesta apposita per avere queste informazioni -->
+        <!-- <label for="username">Username: </label>
+        <input type="text" name="username" formControlName="username">
+        <br>
+
+        <label for="password">Password: </label>
+        <input type="text" name="password" formControlName="password">
+        <br> -->
+
+        <!-- Dropdown per scegliere le classi -->
+        <!-- 
+            Creo un ciclo su su tutte le classi presenti nel vettore, per ogni classe creo un tag <option>
+            che a livello visivo andrà a visualizzare la sezione, mentre come valore intrinseco avrà l'id della classe che sta visualizzando
+            in questo modo quando io seleziono una delle option, il valore dell'option selezionato verra assegnato come valore al tag <select>
+            quindi quando farò la richiesta al backand manderò indietro (insieme ai dati degli altri input) il valore dell'id della classe scelta
+        -->
+        <label for="classe">Classe studente: </label>
+        <select name="classe" formControlName="idclasse">
+            <option *ngFor="let classe of classi" [value]="classe.id">{{classe.sezione}}</option>
+        </select>
+        <br>
+        <input type="submit" value="SUBMIT: Modifica studente">
+    </form>
+</div>
+
 
 <div *ngIf="isInserisciStudente" class="modal">
     <h4>Nuovo Studente</h4>
@@ -57,9 +100,15 @@
             <td>{{studente.id}}</td>
             <td>{{studente.nome}}</td>
             <td>{{studente.cognome}}</td>
-            <td>{{studente.dataNascita}}</td>
+            <td>{{studente.datanascita}}</td>
             <td>{{studente.classe.sezione}}</td>
             <td><button (click)="deleteStudente(studente.id)">Elimina</button></td>
+            <td><button (click)="modificaStudente(studente)">Modifica</button></td>
+            <!-- 
+                Per collegare il metodo modificaStudente() al click, devo passare un oggetto Studente come parametro
+                ma visto che stiamo creando man mano i button ciclando appunto oggetti studente, allora posso passare l'oggetto iterato
+                come parametro al metodo, per ogni button creato
+             -->
         </tr>
     </tbody>
 </table>
