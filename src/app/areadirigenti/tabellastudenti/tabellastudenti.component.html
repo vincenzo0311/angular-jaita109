@@ -84,6 +84,10 @@
 </div>
 
 <button (click)="toggleInserisciStudente()" *ngIf="!isInserisciStudente">Inserisci uno studente</button>
+<div>
+    <!-- Collego la callback della ricerca ell'evento emesso dal componente figlio-->
+    <app-ricercastudente (search)="searchCallback($event)"></app-ricercastudente>
+</div>
 <!-- La tabella ciclerà grazie a *ngFor il vettore di studenti che ci è stato passato dal componente areadirigenti -->
 <table>
     <thead>

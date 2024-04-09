@@ -1,0 +1,3 @@
+<label for="nome">Cerca per nome</label>
+<input (change)="getStudentiByName()" type="text" name="nome" [(ngModel)]="ricercaNome">
+<button (click)="getStudentiByName()">Cerca</button><button (click)="reset()">X</button>

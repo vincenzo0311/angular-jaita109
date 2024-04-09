@@ -207,4 +207,9 @@ export class TabellastudentiComponent {
 
     })
   }
+
+  //Callback del metodo searchByName che c'è all'interno del componente ricercastudenti
+  searchCallback(studenti : Studente[]){
+    this.studenti = studenti;
+  }
 }
